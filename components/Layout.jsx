@@ -1,11 +1,12 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {Navbar} from "./Navbar";
+import { createContext, useContext, useEffect, useState } from "react";
+import { TbClick } from "react-icons/tb";
+import { BiText } from "react-icons/bi";
 
-import {TbClick} from "react-icons/tb";
-import {BiText} from "react-icons/bi";
 import {HiViewBoards, HiVideoCamera, HiPhotograph } from "react-icons/hi";
 
 import { BsInputCursorText } from "react-icons/bs";
+
+import { Navbar } from "./Navbar";
 
 const LayoutContext = createContext();
 
@@ -14,9 +15,25 @@ export const LayoutProvider = ({children}) => {
     const [selectedComponentIndex, setSelectedComponentIndex] =
         useState(undefined);
 
-    useEffect(() => {
-      console.log(components, selectedComponentIndex);
-    }, [components, selectedComponentIndex]);
+  // useEffect(() => {
+  //   console.log(components, selectedComponentIndex);
+  // }, [components, selectedComponentIndex]);
+
+  useEffect(() => {
+    // auto load localstorage saved components if exists on first render
+    const savedComponents = localStorage.getItem("components");
+    if (savedComponents) {
+      setComponents(JSON.parse(savedComponents));
+    }
+  }, []);
+
+  useEffect(() => {
+    // save components to localstorage on change
+    if (components.length > 0) {
+      localStorage.setItem("components", JSON.stringify(components));
+      localStorage.setItem("lastSavedAt", new Date().toISOString());
+    }
+  }, [components]);
 
     return (
         <LayoutContext.Provider
@@ -42,66 +59,66 @@ export const LayoutProvider = ({children}) => {
 export const useLayout = () => useContext(LayoutContext);
 
 const LeftSidebar = () => {
-    const {components, setComponents, setSelectedComponentIndex} = useLayout();
-    return (
-        <div className="w-64 h-full border-r border-neutral-200">
-            <div className="p-3 border-b h-2/5 border-neutral-200">
-                <h2 className="font-bold text-neutral-600">Bibliothèque</h2>
-                <div className="flex flex-col mt-4 overflow-y-auto h-full max-h-[85%] gap-y-2">
-                    <button
-                        onClick={() => {
-                            const old = components;
-                            const component = {
-                                type: "button",
-                                props: {},
-                                key: `button-${old.length}`,
-                                name: `Bouton ${old.length + 1}`,
-                            };
-                            setComponents([...old, component]);
-                            setSelectedComponentIndex(old.length);
-                        }}
-                        className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
-                    >
-                        <TbClick className="w-4 h-4 mr-2 text-neutral-400"/>
-                        Bouton
-                    </button>
-                    <button
-                        onClick={() => {
-                            const old = components;
-                            const component = {
-                                type: "text",
-                                props: {},
-                                key: `text-${old.length}`,
-                                name: `Texte ${old.length + 1}`,
-                            };
-                            setComponents([...old, component]);
+  const { components, setComponents, setSelectedComponentIndex } = useLayout();
+  return (
+    <div className="w-64 h-full border-r border-neutral-200">
+      <div className="p-3 border-b h-2/5 border-neutral-200">
+        <h2 className="font-bold text-neutral-600">Bibliothèque</h2>
+        <div className="flex flex-col mt-4 overflow-y-auto h-full max-h-[85%] gap-y-2">
+          <button
+            onClick={() => {
+              const old = components;
+              const component = {
+                type: "button",
+                props: {},
+                key: `button-${old.length}`,
+                name: `Bouton ${old.length + 1}`,
+              };
+              setComponents([...old, component]);
+              setSelectedComponentIndex(old.length);
+            }}
+            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
+          >
+            <TbClick className="w-4 h-4 mr-2 text-neutral-400" />
+            Bouton
+          </button>
+          <button
+            onClick={() => {
+              const old = components;
+              const component = {
+                type: "text",
+                props: {},
+                key: `text-${old.length}`,
+                name: `Texte ${old.length + 1}`,
+              };
+              setComponents([...old, component]);
 
-                            setSelectedComponentIndex(old.length);
-                        }}
-                        className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
-                    >
-                        <BiText className="w-4 h-4 mr-2 text-neutral-400"/>
-                        Texte
-                    </button>
-                    <button
-                        onClick={() => {
-                            const old = components;
-                            const component = {
-                                type: "textinput",
-                                props: {},
-                                key: `textinput-${old.length}`,
-                                name: `Champ texte ${old.length + 1}`,
-                            };
-                            setComponents([...old, component]);
+              setSelectedComponentIndex(old.length);
+            }}
+            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
+          >
+            <BiText className="w-4 h-4 mr-2 text-neutral-400" />
+            Texte
+          </button>
+          <button
+            onClick={() => {
+              const old = components;
+              const component = {
+                type: "textinput",
+                props: {},
+                key: `textinput-${old.length}`,
+                name: `Champ texte ${old.length + 1}`,
+              };
+              setComponents([...old, component]);
 
-                            setSelectedComponentIndex(old.length);
-                        }}
-                        className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
-                    >
-                        <BsInputCursorText className="w-4 h-4 mr-1 text-neutral-400"/>
-                        Champ texte
-                    </button>
-                    <button
+              setSelectedComponentIndex(old.length);
+            }}
+            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
+          >
+            <BsInputCursorText className="w-4 h-4 mr-1 text-neutral-400" />
+            Champ texte
+          </button>
+<button
                         onClick={() => {
                             const old = components;
                             const component = {
@@ -155,27 +172,27 @@ const LeftSidebar = () => {
                         <HiVideoCamera className="w-4 h-4 mr-2 text-neutral-400"/>
                         Image
                     </button>
-                </div>
-            </div>
-            <div className="p-3 h-3/5 border-neutral-200">
-                <h2 className="font-bold text-neutral-600">Composants</h2>
-                <div className="flex flex-col mt-4 overflow-y-auto h-full max-h-[85%] gap-y-2">
-                    {components.map((component, i) => (
-                        <button
-                            key={component?.key}
-                            onClick={() => setSelectedComponentIndex(i)}
-                            className="inline-flex items-center p-2 text-sm duration-150 border-b last:border-0 hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 "
-                        >
-                            {component?.type === "button" && (
-                                <TbClick className="w-4 h-4 mr-2 text-neutral-400"/>
-                            )}
-                            {component?.type === "text" && (
-                                <BiText className="w-4 h-4 mr-2 text-neutral-400"/>
-                            )}
-                            {component?.type === "textinput" && (
-                                <BsInputCursorText className="w-4 h-4 mr-2 text-neutral-400"/>
-                            )}
-                            {component?.type === "carousel" && (
+        </div>
+      </div>
+      <div className="p-3 h-3/5 border-neutral-200">
+        <h2 className="font-bold text-neutral-600">Composants</h2>
+        <div className="flex flex-col mt-4 overflow-y-auto h-full max-h-[85%] gap-y-2">
+          {components.map((component, i) => (
+            <button
+              key={component?.key}
+              onClick={() => setSelectedComponentIndex(i)}
+              className="inline-flex items-center p-2 text-sm duration-150 border-b last:border-0 hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 "
+            >
+              {component?.type === "button" && (
+                <TbClick className="w-4 h-4 mr-2 text-neutral-400" />
+              )}
+              {component?.type === "text" && (
+                <BiText className="w-4 h-4 mr-2 text-neutral-400" />
+              )}
+              {component?.type === "textinput" && (
+                <BsInputCursorText className="w-4 h-4 mr-2 text-neutral-400" />
+              )}
+{component?.type === "carousel" && (
                                 <HiViewBoards className="w-4 h-4 mr-2 text-neutral-400"/>
                             )}
                             {component?.type === "image" && (
@@ -184,11 +201,10 @@ const LeftSidebar = () => {
                             {component?.type === "video" && (
                                 <HiVideoCamera className="w-4 h-4 mr-2 text-neutral-400"/>
                             )}
-                            {component?.name}
-                        </button>
-                    ))}
-                </div>
-            </div>
+              {component?.name}
+            </button>
+          ))}
+
         </div>
     );
 };
