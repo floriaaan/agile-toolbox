@@ -2,9 +2,16 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { TbClick } from "react-icons/tb";
 import { BiText } from "react-icons/bi";
 
-import { HiViewBoards, HiVideoCamera, HiPhotograph } from "react-icons/hi";
+import {
+  HiViewBoards,
+  HiVideoCamera,
+  HiPhotograph,
+  HiX,
+  HiTrash,
+} from "react-icons/hi";
 
 import { BsInputCursorText } from "react-icons/bs";
+import { BsSliders } from "react-icons/bs";
 
 import { Navbar } from "./Navbar";
 
@@ -59,10 +66,15 @@ export const LayoutProvider = ({ children }) => {
 export const useLayout = () => useContext(LayoutContext);
 
 const LeftSidebar = () => {
-  const { components, setComponents, setSelectedComponentIndex } = useLayout();
+  const {
+    components,
+    setComponents,
+    selectedComponentIndex,
+    setSelectedComponentIndex,
+  } = useLayout();
   return (
     <div className="w-64 h-full border-r border-neutral-200">
-      <div className="p-3 border-b h-2/5 border-neutral-200">
+      <div className="p-3 border-b h-1/2 border-neutral-200">
         <h2 className="font-bold text-neutral-600">Bibliothèque</h2>
         <div className="flex flex-col mt-4 overflow-y-auto h-full max-h-[85%] gap-y-2">
           <button
@@ -175,34 +187,48 @@ const LeftSidebar = () => {
         </div>
       </div>
 
-      <div className="p-3 h-3/5 border-neutral-200">
+      <div className="p-3 h-1/2 border-neutral-200">
         <h2 className="font-bold text-neutral-600">Composants</h2>
         <div className="flex flex-col mt-4 overflow-y-auto h-full max-h-[85%] gap-y-2">
           {components.map((component, i) => (
             <button
               key={component?.key}
               onClick={() => setSelectedComponentIndex(i)}
-              className="inline-flex items-center p-2 text-sm duration-150 border-b last:border-0 hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 "
+              className="inline-flex items-center justify-between w-full p-2 text-sm duration-150 border-b last:border-0 hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 "
             >
-              {component?.type === "button" && (
-                <TbClick className="w-4 h-4 mr-2 text-neutral-400" />
-              )}
-              {component?.type === "text" && (
-                <BiText className="w-4 h-4 mr-2 text-neutral-400" />
-              )}
-              {component?.type === "textinput" && (
-                <BsInputCursorText className="w-4 h-4 mr-2 text-neutral-400" />
-              )}
-              {component?.type === "carousel" && (
-                <HiViewBoards className="w-4 h-4 mr-2 text-neutral-400" />
-              )}
-              {component?.type === "image" && (
-                <HiPhotograph className="w-4 h-4 mr-2 text-neutral-400" />
-              )}
-              {component?.type === "video" && (
-                <HiVideoCamera className="w-4 h-4 mr-2 text-neutral-400" />
-              )}
-              {component?.name}
+              <span className="inline-flex items-center">
+                {component?.type === "button" && (
+                  <TbClick className="w-4 h-4 mr-2 text-neutral-400" />
+                )}
+                {component?.type === "text" && (
+                  <BiText className="w-4 h-4 mr-2 text-neutral-400" />
+                )}
+                {component?.type === "textinput" && (
+                  <BsInputCursorText className="w-4 h-4 mr-2 text-neutral-400" />
+                )}
+                {component?.type === "carousel" && (
+                  <HiViewBoards className="w-4 h-4 mr-2 text-neutral-400" />
+                )}
+                {component?.type === "image" && (
+                  <HiPhotograph className="w-4 h-4 mr-2 text-neutral-400" />
+                )}
+                {component?.type === "video" && (
+                  <HiVideoCamera className="w-4 h-4 mr-2 text-neutral-400" />
+                )}
+                {component?.name}
+              </span>
+              {/* <button
+                className="flex items-center justify-center w-5 h-5 bg-red-100 rounded-lg"
+                onClick={() => {
+                  const old = components;
+                  old.splice(i, 1);
+                  setComponents(old);
+                  if (selectedComponentIndex === i)
+                    setSelectedComponentIndex(undefined);
+                }}
+              >
+                <HiX className="w-3 h-3 text-red-700" />
+              </button> */}
             </button>
           ))}
         </div>
@@ -215,18 +241,25 @@ const LeftSidebar = () => {
  * Figma-style sidebar for properties
  */
 const RightSidebar = () => {
-  const {
-    selectedComponentIndex,
-    setSelectedComponentIndex,
-    setComponents,
-    components,
-  } = useLayout();
+  const { selectedComponentIndex,setSelectedComponentIndex, setComponents, components } = useLayout();
   const component = components[selectedComponentIndex];
   const [text, setText] = useState(component?.props?.text || "");
+  const [bgColor, setBgColor] = useState(
+    component?.props?.bgColor || "bg-transparent"
+  );
+  const [textColor, setTextColor] = useState(component?.props?.textColor || "");
+  const [borderColor, setBorderColor] = useState(
+    component?.props?.borderColor || ""
+  );
+  const [url, setUrl] = useState(component?.props?.url || "");
 
   useEffect(() => {
     if (component) {
       setText(component?.props?.text || "");
+      setBgColor(component?.props?.bgColor || "bg-transparent");
+      setTextColor(component?.props?.textColor || "");
+      setBorderColor(component?.props?.borderColor || "");
+      setUrl(component?.props?.url || "");
     }
   }, [selectedComponentIndex]);
 
@@ -234,24 +267,104 @@ const RightSidebar = () => {
     if (selectedComponentIndex !== undefined) {
       const old = components;
       old[selectedComponentIndex].props.text = text;
+      old[selectedComponentIndex].props.bgColor = bgColor;
+      old[selectedComponentIndex].props.textColor = textColor;
+      old[selectedComponentIndex].props.borderColor = borderColor;
+      old[selectedComponentIndex].props.url = url;
       setComponents([...old]);
     }
-  }, [text]);
+  }, [text, bgColor, textColor, borderColor, url]);
 
   return component ? (
-    <div className="flex flex-col h-full p-4 border-l border-neutral-200 w-72 gap-y-4">
-      <h2 className="font-bold text-neutral-600">Design de {component.name}</h2>
-      <div className="flex flex-col gap-y-2">
-        <label className="flex flex-col">
-          <span className="text-sm text-neutral-600">Texte</span>
-          <input
-            type="text"
-            className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-        </label>
+    <div className="flex flex-col justify-between h-full p-4 border-l border-neutral-200 w-72 gap-y-4">
+      <div className="flex flex-col h-full grow">
+        <h2 className="font-bold text-neutral-600">
+          Propriétés de {component.name}
+        </h2>
+        <div className="flex flex-col gap-y-2">
+          {(component.type === "textinput" || component.type === "button") && (
+            <label className="flex flex-col">
+              <span className="text-sm text-neutral-600">Texte</span>
+              <input
+                type="text"
+                className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              />
+            </label>
+          )}
+          {(component.type === "textinput" || component.type === "button") && (
+            <label className="flex flex-col">
+              <span className="text-sm text-neutral-600">Couleur du fond</span>
+              <select
+                className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+                value={bgColor}
+                onChange={(e) => setBgColor(e.target.value)}
+              >
+                <option value="bg-transparent">Aucune</option>
+                <option value="bg-blue-100">Bleu</option>
+                <option value="bg-red-100">Rouge</option>
+                <option value="bg-green-100">Vert</option>
+              </select>
+            </label>
+          )}
+          {(component.type === "textinput" || component.type === "button") && (
+            <label className="flex flex-col">
+              <span className="text-sm text-neutral-600">Couleur du texte</span>
+              <select
+                className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+                value={textColor}
+                onChange={(e) => setTextColor(e.target.value)}
+              >
+                <option value="">Aucune</option>
+                <option value="text-blue-600">Bleu</option>
+                <option value="text-red-600">Rouge</option>
+                <option value="text-green-600">Vert</option>
+              </select>
+            </label>
+          )}
+          {(component.type === "textinput" || component.type === "button") && (
+            <label className="flex flex-col">
+              <span className="text-sm text-neutral-600">
+                Couleur de la bordure
+              </span>
+              <select
+                className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+                value={borderColor}
+                onChange={(e) => setBorderColor(e.target.value)}
+              >
+                <option value="">Aucune</option>
+                <option value="border-blue-300">Bleu</option>
+                <option value="border-red-300">Rouge</option>
+                <option value="border-green-300">Vert</option>
+              </select>
+            </label>
+          )}
+          {(component.type === "video" || component.type === "image") && (
+            <label className="flex flex-col">
+              <span className="text-sm text-neutral-600">Source URL</span>
+              <input
+                type="text"
+                className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+            </label>
+          )}
+        </div>
       </div>
+      <button
+        onClick={() => {
+          const old = components;
+          old.splice(selectedComponentIndex, 1);
+          setComponents([...old]);
+          setSelectedComponentIndex(undefined);
+        }}
+        className="inline-flex items-center justify-center p-2 text-red-600 duration-150 border border-red-200 rounded-md hover:bg-red-100 gap-x-2"
+      >
+        <HiTrash />
+        Supprimer
+      </button>
     </div>
   ) : null;
 };
