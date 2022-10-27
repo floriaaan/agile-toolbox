@@ -4,16 +4,6 @@ import {useState} from "react";
 
 export default function Clist({choices,maxchoice}) {
     const [selectedValue, setSelectedValue] = useState("");
-    const [choicesState,setChoicesState] = useState([]);
-
-    function renderChoices ()
-    {
-        if(!choicesState) return null;
-
-        return choicesState.map((choice, i) => (
-            <option key={i} className={valueIsSelected(choice.value) ? "selected":""} onClick={() => {handleClickOnChoice(choice)}} selected={valueIsSelected(choice.value)} value={choice.value}>{choice.label}</option>)
-        );
-    }
 
     function handleClickOnChoice (choice)
     {
@@ -47,9 +37,6 @@ export default function Clist({choices,maxchoice}) {
         return isSelected;
     }
     const rendered = [];
-    const getItems = choices.map((item, key) => {
-        rendered.push(item);
-    });
     choices = [
         {
             value:"value 1",
@@ -60,10 +47,14 @@ export default function Clist({choices,maxchoice}) {
             label:"valeur 2"
         }
     ]
+    const getItems = choices.map((choice,i) => {return(
+        <option key={i} className={valueIsSelected(choice.value) ? "selected":""} onClick={() => {handleClickOnChoice(choice)}} selected={valueIsSelected(choice.value)} value={choice.value}>{choice.label}</option>;
+    )});
+    
     return (
         
         <select name="choices">
-            {rendered}
+            {{getItems}}
         </select>
     );
 
