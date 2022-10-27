@@ -6,6 +6,7 @@ import {BiText} from "react-icons/bi";
 import {HiViewBoards, HiVideoCamera, HiPhotograph } from "react-icons/hi";
 
 import { BsInputCursorText } from "react-icons/bs";
+import { BsSliders } from "react-icons/bs";
 
 const LayoutContext = createContext();
 
@@ -82,6 +83,24 @@ const LeftSidebar = () => {
                     >
                         <BiText className="w-4 h-4 mr-2 text-neutral-400"/>
                         Texte
+                    </button>
+                    <button
+                        onClick={() => {
+                            const old = components;
+                            const component = {
+                                type: "cursor",
+                                props: {},
+                                key: `cursor-${old.length}`,
+                                name: `Curseur ${old.length + 1}`,
+                            };
+                            setComponents([...old, component]);
+
+                            setSelectedComponentIndex(old.length);
+                        }}
+                        className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
+                    >
+                        <BsSliders className="w-4 h-4 mr-1 text-neutral-400"/>
+                        Curseur
                     </button>
                     <button
                         onClick={() => {
@@ -168,6 +187,9 @@ const LeftSidebar = () => {
                         >
                             {component?.type === "button" && (
                                 <TbClick className="w-4 h-4 mr-2 text-neutral-400"/>
+                            )}
+                            {component?.type === "cursor" && (
+                                <BsSliders className="w-4 h-4 mr-2 text-neutral-400"/>
                             )}
                             {component?.type === "text" && (
                                 <BiText className="w-4 h-4 mr-2 text-neutral-400"/>

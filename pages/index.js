@@ -2,6 +2,7 @@ import { useLayout } from "../components/Layout";
 
 import Button from "../components/Button";
 import InputText from "../components/InputText";
+import Cursor from "../components/Cursor";
 
 export default function Home() {
   const { components, setComponents } = useLayout();
@@ -49,6 +50,24 @@ export default function Home() {
                 bgColor={component.props?.bgColor}
                 textColor={component.props?.textColor}
                 borderColor={component.props?.borderColor}
+              />
+            </div>
+          );
+        }
+        if (component.type === "cursor") {
+          return (
+            <div
+              className="absolute w-fit h-fit"
+              style={{
+                top: component.position?.y || 0 + index * 40,
+                left: component.position?.x || 0 ,
+              }}
+            >
+              <Cursor
+                min={component.props?.min}
+                max={component.props?.max}
+                value={component.props?.value}
+                step={component.props?.step}
               />
             </div>
           );
