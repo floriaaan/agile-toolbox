@@ -4,7 +4,7 @@ import { CESILogo } from "./CESILogo";
 export const Navbar = () => {
   return (
     <>
-      <div className="sticky top-0 z-50 flex flex-col bg-[#2c2c2c]">
+      <div className="sticky top-0 z-50 flex flex-col bg-neutral-800">
         <div
           aria-label="Navigation principale"
           className="inline-flex items-center justify-between w-full px-5 py-2.5"
