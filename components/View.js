@@ -17,7 +17,6 @@ export const MediaView = ({name, url, type}) => {
                         className="z-[6] h-full xl:h-auto xl:w-full object-cover overflow-hidden absolute"
                         alt="meeting"
                     />
-
                     <div
                         className="absolute flex justify-center items-center h-full w-full bg-black bg-opacity-60 z-[8]">
                         <HiVolumeUp className="w-24 h-24 stroke-[1.5] text-white"/>
