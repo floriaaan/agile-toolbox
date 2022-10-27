@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { Navbar } from "./Navbar";
 
 import { CgHashtag } from "react-icons/cg";
+import { BsInputCursorText } from "react-icons/bs";
 
 const LayoutContext = createContext();
 
@@ -32,6 +33,10 @@ const LeftSidebar = () => {
           <button className="inline-flex items-center p-2 duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50">
             <CgHashtag className="w-4 h-4 mr-1 text-neutral-400" />
             Bouton
+          </button>
+          <button className="inline-flex items-center p-2 duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50">
+            <BsInputCursorText className="w-4 h-4 mr-1 text-neutral-400" />
+            Champ texte
           </button>
         </div>
       </div>
