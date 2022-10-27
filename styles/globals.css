@@ -1,3 +1,68 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: fkscreamer;
+    src: url(/font/FKScreamer-Bold.woff2) format("woff2");
+    font-weight: 700;
+  }
+
+  @font-face {
+    font-family: faktum;
+    src: url(/font/Faktum-Regular.woff2) format("woff2");
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: faktum;
+    src: url(/font/Faktum-Bold.woff2) format("woff2");
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .title {
+    @apply px-2 text-5xl font-bold text-black first-letter:uppercase w-fit font-heading bg-primary;
+  }
+
+  .title__underline::before {
+    @apply absolute w-48 h-4 bg-primary -bottom-2 left-8;
+    content: "";
+  }
+
+  .nav__link {
+    @apply text-[13px] font-bold uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1;
+  }
+
+  .subnav__link {
+    @apply text-[13px] first-letter:uppercase transition-all duration-200 font-body decoration-black hover:underline underline-offset-2 inline-flex items-center gap-x-1;
+  }
+
+  .btn__pill {
+    @apply inline-flex items-center text-xs py-0.5 px-2 md:text-sm font-bold text-black uppercase border border-transparent rounded-full cursor-pointer select-none md:px-5 md:py-1 shadow__button-purple bg-primary font-body hover:bg-black hover:text-primary active:border-black active:bg-primary active:text-black;
+  }
+
+  .btn__colors {
+    @apply text-black border border-transparent bg-primary hover:bg-black hover:text-primary active:bg-primary active:text-black active:border-black;
+  }
+
+  .input__shadow-purple:hover {
+    -webkit-box-shadow: 0 0 0.8rem 0 rgb(57 0 230 / 30%);
+    box-shadow: 0 0 0.8rem 0 rgb(57 0 230 / 30%);
+  }
+
+  .input__shadow-primary:hover {
+    -webkit-box-shadow: 0 0 0.8rem 0 rgb(251 226 22 / 30%);
+    box-shadow: 0 0 0.8rem 0 rgb(251 226 22 / 30%);
+  }
+}
+
+body {
+  @apply text-black bg-white font-body selection:bg-primary;
+}
+
+.shadow__button-purple {
+  -webkit-box-shadow: 0 0.3rem 0 0 #afa5d1;
+  box-shadow: 0 0.3rem 0 0 #afa5d1;
+}
