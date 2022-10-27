@@ -14,7 +14,7 @@ export const MediaCarouselView = ({medias}) => {
     );
 
     return (
-        medias.length > 0 && (
+        medias && medias.length > 0 && (
             <>
                 <div className="relative min-h-[12rem] h-full group">
                     <IndicatorsComponent/>

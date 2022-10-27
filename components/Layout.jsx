@@ -1,19 +1,12 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { TbClick } from "react-icons/tb";
-import { BiText } from "react-icons/bi";
+import {createContext, useContext, useEffect, useState} from "react";
+import {TbClick} from "react-icons/tb";
+import {BiText} from "react-icons/bi";
 
-import {
-  HiViewBoards,
-  HiVideoCamera,
-  HiPhotograph,
-  HiX,
-  HiTrash,
-} from "react-icons/hi";
+import {HiPhotograph, HiTrash, HiVideoCamera, HiViewBoards,} from "react-icons/hi";
 
-import { BsInputCursorText } from "react-icons/bs";
-import { BsSliders } from "react-icons/bs";
+import {BsInputCursorText, BsSliders} from "react-icons/bs";
 
-import { Navbar } from "./Navbar";
+import {Navbar} from "./Navbar";
 
 const LayoutContext = createContext();
 
@@ -69,7 +62,6 @@ const LeftSidebar = () => {
   const {
     components,
     setComponents,
-    selectedComponentIndex,
     setSelectedComponentIndex,
   } = useLayout();
   return (
@@ -134,26 +126,8 @@ const LeftSidebar = () => {
             onClick={() => {
               const old = components;
               const component = {
-                type: "carousel",
-                props: {},
-                key: `carousel-${old.length}`,
-                name: `Caroussel ${old.length + 1}`,
-              };
-              setComponents([...old, component]);
-
-              setSelectedComponentIndex(old.length);
-            }}
-            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
-          >
-            <HiViewBoards className="w-4 h-4 mr-2 text-neutral-400" />
-            Caroussel
-          </button>
-          <button
-            onClick={() => {
-              const old = components;
-              const component = {
                 type: "image",
-                props: {},
+                url: "https://picsum.photos/200",
                 key: `image-${old.length}`,
                 name: `Image ${old.length + 1}`,
               };
@@ -165,24 +139,6 @@ const LeftSidebar = () => {
           >
             <HiPhotograph className="w-4 h-4 mr-2 text-neutral-400" />
             Image
-          </button>
-          <button
-            onClick={() => {
-              const old = components;
-              const component = {
-                type: "video",
-                props: {},
-                key: `video-${old.length}`,
-                name: `Vidéo ${old.length + 1}`,
-              };
-              setComponents([...old, component]);
-
-              setSelectedComponentIndex(old.length);
-            }}
-            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
-          >
-            <HiVideoCamera className="w-4 h-4 mr-2 text-neutral-400" />
-            Vidéo
           </button>
           <button
             onClick={() => {

@@ -39,6 +39,9 @@
       ],
       "@models/*": [
         "models/*"
+      ],
+      "@assets/*": [
+        "public/assets/*"
       ]
     },
     "incremental": true

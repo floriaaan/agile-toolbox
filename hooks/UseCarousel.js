@@ -12,7 +12,7 @@ export function useCarousel(
     const previous = () => {
         setCurrentIndex((currentIndex) => {
             if (currentIndex === 0) {
-                return items.length - 1;
+                return items?.length - 1;
             }
             return currentIndex - 1;
         });
@@ -20,7 +20,7 @@ export function useCarousel(
 
     const next = () => {
         setCurrentIndex((currentIndex) => {
-            if (currentIndex === items.length - 1) {
+            if (currentIndex === items?.length - 1) {
                 return 0;
             }
             return currentIndex + 1;
@@ -28,7 +28,7 @@ export function useCarousel(
     };
 
     const jumpTo = (index) => {
-        setCurrentIndex(index % items.length);
+        setCurrentIndex(index % items?.length);
     };
 
     const wrapperStyle = {
@@ -40,7 +40,7 @@ export function useCarousel(
         width: "100%",
         height: "100%",
         position: "relative",
-        flex: items.length,
+        flex: items?.length,
     };
 
     const itemStyle = {
@@ -51,11 +51,11 @@ export function useCarousel(
     const IndicatorsComponent = () => {
         return (
             <div className="absolute top-0 inline-flex gap-2 w-full p-2 z-[8]">
-                {items.map((_, index) => (
+                {items?.map((_, index) => (
                     <span
                         key={index}
                         onClick={() => jumpTo(index)}
-                        style={{width: `${100 / items.length}%`}}
+                        style={{width: `${100 / items?.length}%`}}
                         className="pb-16 cursor-pointer"
                     >
             <div
@@ -77,11 +77,11 @@ export function useCarousel(
 
     useEffect(() => {
         const _interval = setInterval(() => {
-            setCurrentIndex((currentIndex) => (currentIndex + 1) % items.length);
+            setCurrentIndex((currentIndex) => (currentIndex + 1) % items?.length);
         }, interval);
 
         return () => clearInterval(_interval);
-    }, [interval, items.length]);
+    }, [interval, items?.length]);
 
     return {
         activeIndex: currentIndex,
