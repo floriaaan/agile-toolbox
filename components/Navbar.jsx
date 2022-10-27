@@ -1,5 +1,5 @@
-import { formatDistance } from "date-fns/esm";
-import fr from "date-fns/esm/locale/fr/index.js";
+import { formatDistance } from "date-fns";
+import fr from "date-fns/locale/fr/index.js";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BiSave } from "react-icons/bi";
