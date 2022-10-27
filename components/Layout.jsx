@@ -225,6 +225,7 @@ const RightSidebar = () => {
   const [borderColor, setBorderColor] = useState(
     component?.props?.borderColor || ""
   );
+  const [url, setUrl] = useState(component?.props?.url || "");
 
   useEffect(() => {
     if (component) {
@@ -232,6 +233,7 @@ const RightSidebar = () => {
       setBgColor(component?.props?.bgColor || "bg-transparent");
       setTextColor(component?.props?.textColor || "");
       setBorderColor(component?.props?.borderColor || "");
+      setUrl(component?.props?.url || "");
     }
   }, [selectedComponentIndex]);
 
@@ -242,62 +244,86 @@ const RightSidebar = () => {
       old[selectedComponentIndex].props.bgColor = bgColor;
       old[selectedComponentIndex].props.textColor = textColor;
       old[selectedComponentIndex].props.borderColor = borderColor;
+      old[selectedComponentIndex].props.url = url;
       setComponents([...old]);
     }
-  }, [text, bgColor, textColor, borderColor]);
+  }, [text, bgColor, textColor, borderColor, url]);
 
   return component ? (
     <div className="flex flex-col h-full p-4 border-l border-neutral-200 w-72 gap-y-4">
-      <h2 className="font-bold text-neutral-600">Design de {component.name}</h2>
+      <h2 className="font-bold text-neutral-600">
+        Propriétés de {component.name}
+      </h2>
       <div className="flex flex-col gap-y-2">
-        <label className="flex flex-col">
-          <span className="text-sm text-neutral-600">Texte</span>
-          <input
-            type="text"
-            className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
-        </label>
-        <label className="flex flex-col">
-          <span className="text-sm text-neutral-600">Couleur du fond</span>
-          <select
-            className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
-            value={bgColor}
-            onChange={(e) => setBgColor(e.target.value)}
-          >
-            <option value="bg-transparent">Aucune</option>
-            <option value="bg-blue-100">Bleu</option>
-            <option value="bg-red-100">Rouge</option>
-            <option value="bg-green-100">Vert</option>
-          </select>
-        </label>
-        <label className="flex flex-col">
-          <span className="text-sm text-neutral-600">Couleur du texte</span>
-          <select
-            className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
-            value={textColor}
-            onChange={(e) => setTextColor(e.target.value)}
-          >
-            <option value="">Aucune</option>
-            <option value="text-blue-600">Bleu</option>
-            <option value="text-red-600">Rouge</option>
-            <option value="text-green-600">Vert</option>
-          </select>
-        </label>
-        <label className="flex flex-col">
-          <span className="text-sm text-neutral-600">Couleur de la bordure</span>
-          <select
-            className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
-            value={borderColor}
-            onChange={(e) => setBorderColor(e.target.value)}
-          >
-            <option value="">Aucune</option>
-            <option value="border-blue-300">Bleu</option>
-            <option value="border-red-300">Rouge</option>
-            <option value="border-green-300">Vert</option>
-          </select>
-        </label>
+        {(component.type === "textinput" || component.type === "button") && (
+          <label className="flex flex-col">
+            <span className="text-sm text-neutral-600">Texte</span>
+            <input
+              type="text"
+              className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+          </label>
+        )}
+        {(component.type === "textinput" || component.type === "button") && (
+          <label className="flex flex-col">
+            <span className="text-sm text-neutral-600">Couleur du fond</span>
+            <select
+              className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+              value={bgColor}
+              onChange={(e) => setBgColor(e.target.value)}
+            >
+              <option value="bg-transparent">Aucune</option>
+              <option value="bg-blue-100">Bleu</option>
+              <option value="bg-red-100">Rouge</option>
+              <option value="bg-green-100">Vert</option>
+            </select>
+          </label>
+        )}
+        {(component.type === "textinput" || component.type === "button") && (
+          <label className="flex flex-col">
+            <span className="text-sm text-neutral-600">Couleur du texte</span>
+            <select
+              className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+              value={textColor}
+              onChange={(e) => setTextColor(e.target.value)}
+            >
+              <option value="">Aucune</option>
+              <option value="text-blue-600">Bleu</option>
+              <option value="text-red-600">Rouge</option>
+              <option value="text-green-600">Vert</option>
+            </select>
+          </label>
+        )}
+        {(component.type === "textinput" || component.type === "button") && (
+          <label className="flex flex-col">
+            <span className="text-sm text-neutral-600">
+              Couleur de la bordure
+            </span>
+            <select
+              className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+              value={borderColor}
+              onChange={(e) => setBorderColor(e.target.value)}
+            >
+              <option value="">Aucune</option>
+              <option value="border-blue-300">Bleu</option>
+              <option value="border-red-300">Rouge</option>
+              <option value="border-green-300">Vert</option>
+            </select>
+          </label>
+        )}
+        {(component.type === "video" || component.type === "image") && (
+          <label className="flex flex-col">
+            <span className="text-sm text-neutral-600">Source URL</span>
+            <input
+              type="text"
+              className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+            />
+          </label>
+        )}
       </div>
     </div>
   ) : null;
