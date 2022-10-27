@@ -236,18 +236,23 @@ const LeftSidebar = () => {
  * Figma-style sidebar for properties
  */
 const RightSidebar = () => {
-  const {
-    selectedComponentIndex,
-    setSelectedComponentIndex,
-    setComponents,
-    components,
-  } = useLayout();
+  const { selectedComponentIndex, setComponents, components } = useLayout();
   const component = components[selectedComponentIndex];
   const [text, setText] = useState(component?.props?.text || "");
+  const [bgColor, setBgColor] = useState(
+    component?.props?.bgColor || "bg-transparent"
+  );
+  const [textColor, setTextColor] = useState(component?.props?.textColor || "");
+  const [borderColor, setBorderColor] = useState(
+    component?.props?.borderColor || ""
+  );
 
   useEffect(() => {
     if (component) {
       setText(component?.props?.text || "");
+      setBgColor(component?.props?.bgColor || "bg-transparent");
+      setTextColor(component?.props?.textColor || "");
+      setBorderColor(component?.props?.borderColor || "");
     }
   }, [selectedComponentIndex]);
 
@@ -255,9 +260,12 @@ const RightSidebar = () => {
     if (selectedComponentIndex !== undefined) {
       const old = components;
       old[selectedComponentIndex].props.text = text;
+      old[selectedComponentIndex].props.bgColor = bgColor;
+      old[selectedComponentIndex].props.textColor = textColor;
+      old[selectedComponentIndex].props.borderColor = borderColor;
       setComponents([...old]);
     }
-  }, [text]);
+  }, [text, bgColor, textColor, borderColor]);
 
   return component ? (
     <div className="flex flex-col h-full p-4 border-l border-neutral-200 w-72 gap-y-4">
@@ -271,6 +279,45 @@ const RightSidebar = () => {
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
+        </label>
+        <label className="flex flex-col">
+          <span className="text-sm text-neutral-600">Couleur du fond</span>
+          <select
+            className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+            value={bgColor}
+            onChange={(e) => setBgColor(e.target.value)}
+          >
+            <option value="bg-transparent">Aucune</option>
+            <option value="bg-blue-100">Bleu</option>
+            <option value="bg-red-100">Rouge</option>
+            <option value="bg-green-100">Vert</option>
+          </select>
+        </label>
+        <label className="flex flex-col">
+          <span className="text-sm text-neutral-600">Couleur du texte</span>
+          <select
+            className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+            value={textColor}
+            onChange={(e) => setTextColor(e.target.value)}
+          >
+            <option value="">Aucune</option>
+            <option value="text-blue-600">Bleu</option>
+            <option value="text-red-600">Rouge</option>
+            <option value="text-green-600">Vert</option>
+          </select>
+        </label>
+        <label className="flex flex-col">
+          <span className="text-sm text-neutral-600">Couleur de la bordure</span>
+          <select
+            className="p-2 border rounded-md border-neutral-200 focus:border-primary-500 focus:ring-primary-500 focus:ring-2"
+            value={borderColor}
+            onChange={(e) => setBorderColor(e.target.value)}
+          >
+            <option value="">Aucune</option>
+            <option value="border-blue-300">Bleu</option>
+            <option value="border-red-300">Rouge</option>
+            <option value="border-green-300">Vert</option>
+          </select>
         </label>
       </div>
     </div>
