@@ -269,7 +269,7 @@ const RightSidebar = () => {
           Propriétés de {component.name}
         </h2>
         <div className="flex flex-col gap-y-2">
-          {(component.type === "textinput" || component.type === "button") && (
+          {(component.type === "textinput" || component.type === "button"|| component.type === "text") && (
             <label className="flex flex-col">
               <span className="text-sm text-neutral-600">Texte</span>
               <input
@@ -296,7 +296,7 @@ const RightSidebar = () => {
               </select>
             </label>
           )}
-          {(component.type === "textinput" || component.type === "button") && (
+          {(component.type === "textinput" || component.type === "button" || component.type === "text") && (
             <label className="flex flex-col">
               <span className="text-sm text-neutral-600">Couleur du texte</span>
               <select
