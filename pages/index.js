@@ -1,5 +1,20 @@
+import {clist} from "../components/clist.js";
+
 export default function Home() {
+    const data = [
+        {
+            value:"value 1",
+            label:"valeur 1"
+        },
+        {
+            value:"value 2",
+            label:"valeur 2"
+        }
+    ]
     return (
-        <h1>Coucou les loulous</h1>
+        <div>
+            <h1>Coucou les loulous</h1>
+            <clist choices={data}/>
+        </div>
     )
 }
