@@ -1,12 +1,17 @@
-import {createContext, useContext, useEffect, useState} from "react";
-import {TbClick} from "react-icons/tb";
-import {BiText} from "react-icons/bi";
+import { createContext, useContext, useEffect, useState } from "react";
+import { TbClick } from "react-icons/tb";
+import { BiText } from "react-icons/bi";
 
-import {HiPhotograph, HiTrash, HiVideoCamera, HiViewBoards,} from "react-icons/hi";
+import {
+  HiPhotograph,
+  HiTrash,
+  HiVideoCamera,
+  HiViewBoards,
+} from "react-icons/hi";
 
-import {BsInputCursorText, BsSliders} from "react-icons/bs";
+import { BsInputCursorText, BsSliders } from "react-icons/bs";
 
-import {Navbar} from "./Navbar";
+import { Navbar } from "./Navbar";
 
 const LayoutContext = createContext();
 
@@ -59,11 +64,7 @@ export const LayoutProvider = ({ children }) => {
 export const useLayout = () => useContext(LayoutContext);
 
 const LeftSidebar = () => {
-  const {
-    components,
-    setComponents,
-    setSelectedComponentIndex,
-  } = useLayout();
+  const { components, setComponents, setSelectedComponentIndex } = useLayout();
   return (
     <div className="w-64 h-full border-r border-neutral-200">
       <div className="p-3 border-b h-1/2 border-neutral-200">
@@ -127,7 +128,9 @@ const LeftSidebar = () => {
               const old = components;
               const component = {
                 type: "image",
-                url: "https://picsum.photos/200",
+                props: {
+                  url: "https://picsum.photos/200",
+                },
                 key: `image-${old.length}`,
                 name: `Image ${old.length + 1}`,
               };
@@ -248,12 +251,14 @@ const RightSidebar = () => {
   useEffect(() => {
     if (selectedComponentIndex !== undefined) {
       const old = components;
-      old[selectedComponentIndex].props.text = text;
-      old[selectedComponentIndex].props.bgColor = bgColor;
-      old[selectedComponentIndex].props.textColor = textColor;
-      old[selectedComponentIndex].props.borderColor = borderColor;
-      old[selectedComponentIndex].props.url = url;
-      setComponents([...old]);
+      if (old[selectedComponentIndex] && old[selectedComponentIndex].props) {
+        old[selectedComponentIndex].props.text = text;
+        old[selectedComponentIndex].props.bgColor = bgColor;
+        old[selectedComponentIndex].props.textColor = textColor;
+        old[selectedComponentIndex].props.borderColor = borderColor;
+        old[selectedComponentIndex].props.url = url;
+        setComponents([...old]);
+      }
     }
   }, [text, bgColor, textColor, borderColor, url]);
 
@@ -287,6 +292,7 @@ const RightSidebar = () => {
                 <option value="bg-blue-100">Bleu</option>
                 <option value="bg-red-100">Rouge</option>
                 <option value="bg-green-100">Vert</option>
+                <option value="bg-amber-100">Jaune</option>
               </select>
             </label>
           )}
@@ -302,6 +308,7 @@ const RightSidebar = () => {
                 <option value="text-blue-600">Bleu</option>
                 <option value="text-red-600">Rouge</option>
                 <option value="text-green-600">Vert</option>
+                <option value="text-amber-600">Jaune</option>
               </select>
             </label>
           )}
@@ -319,6 +326,7 @@ const RightSidebar = () => {
                 <option value="border-blue-300">Bleu</option>
                 <option value="border-red-300">Rouge</option>
                 <option value="border-green-300">Vert</option>
+                <option value="border-amber-300">Jaune</option>
               </select>
             </label>
           )}

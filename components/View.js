@@ -6,7 +6,7 @@ import {
 
 export const MediaView = ({name, url, type}) => {
     return (
-        <div className="relative flex flex-col h-full max-h-[24rem] rounded-md sm:rounded-lg max-h-52 max-w-max">
+        <div className="relative flex flex-col w-auto rounded-md sm:rounded-lg h-52 aspect-video">
             {type.includes("image") && (
                 <img src={url} alt={name} className="object-cover h-full"/>
             )}
