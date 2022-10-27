@@ -14,9 +14,9 @@ export const LayoutProvider = ({children}) => {
     const [selectedComponentIndex, setSelectedComponentIndex] =
         useState(undefined);
 
-  //   useEffect(() => {
-  //     console.log(components, selectedComponentIndex);
-  //   }, [components, selectedComponentIndex]);
+    useEffect(() => {
+      console.log(components, selectedComponentIndex);
+    }, [components, selectedComponentIndex]);
 
     return (
         <LayoutContext.Provider
