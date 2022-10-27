@@ -2,6 +2,7 @@ import { useLayout } from "../components/Layout";
 
 import Button from "../components/Button";
 import InputText from "../components/InputText";
+import InputText from "../components/InputText";
 import Cursor from "../components/Cursor";
 import Exporter from "@components/Exporter";
 import jsPDF from "jspdf";
