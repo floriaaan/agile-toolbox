@@ -1,4 +1,4 @@
-import {clist} from "../components/clist.js";
+import Clist from "../components/clist.js";
 
 export default function Home() {
     const data = [
@@ -14,7 +14,7 @@ export default function Home() {
     return (
         <div>
             <h1>Coucou les loulous</h1>
-            <clist choices={data}/>
+            <Clist choices={data}/>
         </div>
     )
 }
