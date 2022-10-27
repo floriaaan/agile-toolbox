@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BiSave } from "react-icons/bi";
 import { CESILogo } from "./CESILogo";
+import { useLayout } from "./Layout";
 
 export const Navbar = () => {
   const [lastSavedAt, setLastSavedAt] = useState(undefined);
+  const { setComponents } = useLayout();
 
   useEffect(() => {
     const lastSavedAt = localStorage.getItem("lastSavedAt");
@@ -34,15 +36,30 @@ export const Navbar = () => {
               </span>
             </Link>
           </nav>
-          <span className="inline-flex items-center text-sm text-neutral-300 gap-x-2">
-            <BiSave className="inline-block w-5 h-5  stroke-[0.4]" />
-            {lastSavedAt
-              ? `sauvegardé ${formatDistance(
-                  new Date(lastSavedAt),
-                  new Date(),
-                  { addSuffix: true, locale: fr }
-                )}`
-              : "non sauvegardé"}
+          <span className="inline-flex items-center">
+            <span className="inline-flex items-center text-sm text-neutral-300 gap-x-2">
+              <BiSave className="inline-block w-5 h-5  stroke-[0.4]" />
+              {lastSavedAt
+                ? `sauvegardé ${formatDistance(
+                    new Date(lastSavedAt),
+                    new Date(),
+                    { addSuffix: true, locale: fr }
+                  )}`
+                : "non sauvegardé"}
+            </span>
+            {lastSavedAt && (
+              <button
+                className="ml-2 text-xs duration-200 text-neutral-300 hover:text-red-200"
+                onClick={() => {
+                  localStorage.setItem("lastSavedAt", "undefined");
+                  setLastSavedAt(undefined);
+                  localStorage.setItem("components", "[]");
+                  setComponents([]);
+                }}
+              >
+                &bull; Supprimer
+              </button>
+            )}
           </span>
         </div>
       </div>
