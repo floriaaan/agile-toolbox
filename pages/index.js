@@ -3,11 +3,21 @@ import { useLayout } from "../components/Layout";
 import Button from "../components/Button";
 import InputText from "../components/InputText";
 import Cursor from "../components/Cursor";
-import Text from "../components/Text";
+import Exporter from "@components/Exporter";
+import jsPDF from "jspdf";
 
 export default function Home() {
   const { components, setComponents } = useLayout();
+
+  const printDocument = () => {
+    const report = new jsPDF('p', 'pt', 'a4');
+    report.html(document.querySelector('#report')).then(() => {
+        report.save('export.pdf');
+    });
+  }
+
   return (
+    <Exporter printDocument={() => printDocument()}>
     <div className="relative w-full h-full m-4 grow">
       {components.map((component, index) => {
         if (component.type === "button") {
@@ -93,5 +103,6 @@ export default function Home() {
         }
       })}
     </div>
+    </Exporter>
   );
 }
