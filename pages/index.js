@@ -1,3 +1,5 @@
+import Button from "../components/Button";
+
 import {MediaCarouselView} from "@components/Media";
 
 export default function Home() {
@@ -20,11 +22,3 @@ export default function Home() {
         </>
     )
 }
-
-//export type Media = {
-//name: string;
-//type: string;
-//size: string;
-//url: string;
-//}
-//;
