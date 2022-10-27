@@ -1,5 +1,5 @@
-import {useLayout} from "../components/Layout";
-
+import {useLayout} from "@components/Layout";
+import {MediaView} from "@components/View";
 import Button from "../components/Button";
 import InputText from "../components/InputText";
 import Cursor from "../components/Cursor";
@@ -17,12 +17,12 @@ export default function Home() {
     }
     return (
         <Exporter printDocument={() => printDocument()}>
-            <div className="relative w-full h-full m-4 grow overflow-y-auto">
+            <div className="my-3 relative w-full h-full m-4 grow overflow-y-auto">
                 {components.map((component, index) => {
                     if (component.type === "button") {
                         return (
                             <div
-                                className="absolute z-10 w-fit h-fit active:cursor-move"
+                                className="y-10 w-fit h-fit active:cursor-move"
                                 style={{
                                     top: component.position?.y || 0 + index * 40,
                                     left: component.position?.x || 0,
@@ -49,7 +49,7 @@ export default function Home() {
                     if (component.type === "textinput") {
                         return (
                             <div
-                                className="absolute w-fit h-fit"
+                                className="mt-2 y-10 w-fit h-fit"
                                 style={{
                                     top: component.position?.y || 0 + index * 40,
                                     left: component.position?.x || 0,
@@ -66,8 +66,9 @@ export default function Home() {
                     }
                     if (component.type === "image") {
                         return (
-                            <MediaView type={component.type} name={component?.name} url={component?.url}/>
-
+                            <div className="mt-2">
+                                <MediaView type={component.type} name={component?.name} url={component?.url}/>
+                            </div>
                         );
                     }
                     if (component.type === "cursor") {

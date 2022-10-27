@@ -1,19 +1,12 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { TbClick } from "react-icons/tb";
-import { BiText } from "react-icons/bi";
+import {createContext, useContext, useEffect, useState} from "react";
+import {TbClick} from "react-icons/tb";
+import {BiText} from "react-icons/bi";
 
-import {
-  HiViewBoards,
-  HiVideoCamera,
-  HiPhotograph,
-  HiX,
-  HiTrash,
-} from "react-icons/hi";
+import {HiPhotograph, HiTrash, HiVideoCamera, HiViewBoards,} from "react-icons/hi";
 
-import { BsInputCursorText } from "react-icons/bs";
-import { BsSliders } from "react-icons/bs";
+import {BsInputCursorText} from "react-icons/bs";
 
-import { Navbar } from "./Navbar";
+import {Navbar} from "./Navbar";
 
 const LayoutContext = createContext();
 
@@ -171,7 +164,7 @@ const LeftSidebar = () => {
               const old = components;
               const component = {
                 type: "video",
-                url: video,
+                url: "",
                 key: `video-${old.length}`,
                 name: `Vidéo ${old.length + 1}`,
               };
