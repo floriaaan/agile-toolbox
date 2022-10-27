@@ -2,6 +2,7 @@ import { useLayout } from "../components/Layout";
 
 import Button from "../components/Button";
 import InputText from "../components/InputText";
+import Text from "../components/Text";
 
 export default function Home() {
   const { components, setComponents } = useLayout();
@@ -41,6 +42,15 @@ export default function Home() {
               textColor={component.props?.textColor}
               borderColor={component.props?.borderColor}
             />
+          )}
+
+          {component.type === "text" && (
+            <Text
+            text={component.props?.text}
+            height={component.props?.height}
+            width={component.props?.width}
+            textColor={component.props?.textColor}
+          />
           )}
         </div>
       ))}
