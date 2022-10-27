@@ -4,7 +4,7 @@ const InputText = ({ textPlaceHolder, bgColor, borderColor, textColor }) => {
       <input
         aria-label={textPlaceHolder}
         type="text"
-        className={`rounded-full border-2 py-1 px-5 ${borderColor} ${bgColor} ${textColor}`}
+        className={`rounded-full border-2 py-1 px-5 ${borderColor} ${bgColor} ${textColor} mt-2`}
         placeholder={textPlaceHolder || "Default place holder"}
       />
     </div>

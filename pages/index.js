@@ -2,6 +2,7 @@ import {useLayout} from "@components/Layout";
 import {MediaView} from "@components/View";
 import Button from "../components/Button";
 import InputText from "../components/InputText";
+import Texte from "../components/Text";
 import Cursor from "../components/Cursor";
 import Exporter from "@components/Exporter";
 import jsPDF from "jspdf";
@@ -89,6 +90,24 @@ export default function Home() {
                             </div>
                         );
                     }
+                    if (component.type === "text") {
+                    return (
+                        <div
+                            className="absolute w-fit h-fit"
+                            style={{
+                              top: component.position?.y || 0 + index * 40,
+                              left: component.position?.x || 0 ,
+                            }}
+                        >
+                          <Texte
+                              text={component.props?.text}
+                              height={component.props?.height}
+                              width={component.props?.width}
+                              textColor={component.props?.textColor}
+                          />
+                        </div>
+                    );
+                  }
                 })}
             </div>
         </Exporter>
