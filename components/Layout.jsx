@@ -1,10 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Navbar } from "./Navbar";
-
 import { TbClick } from "react-icons/tb";
 import { BiText } from "react-icons/bi";
-
 import { BsInputCursorText } from "react-icons/bs";
+
+import { Navbar } from "./Navbar";
 
 const LayoutContext = createContext();
 
@@ -13,9 +12,25 @@ export const LayoutProvider = ({ children }) => {
   const [selectedComponentIndex, setSelectedComponentIndex] =
     useState(undefined);
 
-    useEffect(() => {
-      console.log(components, selectedComponentIndex);
-    }, [components, selectedComponentIndex]);
+  // useEffect(() => {
+  //   console.log(components, selectedComponentIndex);
+  // }, [components, selectedComponentIndex]);
+
+  useEffect(() => {
+    // auto load localstorage saved components if exists on first render
+    const savedComponents = localStorage.getItem("components");
+    if (savedComponents) {
+      setComponents(JSON.parse(savedComponents));
+    }
+  }, []);
+
+  useEffect(() => {
+    // save components to localstorage on change
+    if (components.length > 0) {
+      localStorage.setItem("components", JSON.stringify(components));
+      localStorage.setItem("lastSavedAt", new Date().toISOString());
+    }
+  }, [components]);
 
   return (
     <LayoutContext.Provider
@@ -116,7 +131,8 @@ const LeftSidebar = () => {
               )}
               {component?.type === "text" && (
                 <BiText className="w-4 h-4 mr-2 text-neutral-400" />
-              )}{component?.type === "textinput" && (
+              )}
+              {component?.type === "textinput" && (
                 <BsInputCursorText className="w-4 h-4 mr-2 text-neutral-400" />
               )}
               {component?.name}
