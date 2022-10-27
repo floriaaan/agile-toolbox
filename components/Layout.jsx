@@ -4,7 +4,7 @@ import {BiText} from "react-icons/bi";
 
 import {HiPhotograph, HiTrash, HiVideoCamera, HiViewBoards,} from "react-icons/hi";
 
-import {BsInputCursorText} from "react-icons/bs";
+import {BsInputCursorText, BsSliders} from "react-icons/bs";
 
 import {Navbar} from "./Navbar";
 

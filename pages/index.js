@@ -75,7 +75,7 @@ export default function Home() {
                     if (component.type === "cursor") {
                         return (
                             <div
-                                className="absolute w-fit h-fit"
+                                className="mt-2 w-fit h-fit"
                                 style={{
                                     top: component.position?.y || 0 + index * 40,
                                     left: component.position?.x || 0,
@@ -93,7 +93,7 @@ export default function Home() {
                     if (component.type === "text") {
                     return (
                         <div
-                            className="absolute w-fit h-fit"
+                            className="mt-2 w-fit h-fit"
                             style={{
                               top: component.position?.y || 0 + index * 40,
                               left: component.position?.x || 0 ,
