@@ -2,7 +2,7 @@ const Text = ({ text, height, width, textColor }) => {
     return (
       <div>
         <p className={`py-1 px-5 ${height} ${width} ${textColor}`} >
-            {text || "Texte"}
+          {text || "Texte"}
         </p>
       </div>
     );
