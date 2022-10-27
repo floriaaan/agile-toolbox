@@ -6,4 +6,7 @@ const Button = ({content, bgColor, borderColor, textColor}) => {
     )
 }
 
+// USAGE EXAMPLE:
+// <Button content='Test' borderColor='border-red-400' bgColor='bg-red-300' textColor='text-white'/>
+
 export default Button;
