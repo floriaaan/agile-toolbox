@@ -15,7 +15,7 @@ export const Navbar = () => {
     if (lastSavedAt) {
       setLastSavedAt(lastSavedAt);
     }
-  });
+  }, []);
 
   return (
     <>
@@ -39,7 +39,7 @@ export const Navbar = () => {
           <span className="inline-flex items-center">
             <span className="inline-flex items-center text-sm text-neutral-300 gap-x-2">
               <BiSave className="inline-block w-5 h-5  stroke-[0.4]" />
-              {lastSavedAt
+              {lastSavedAt 
                 ? `sauvegardé ${formatDistance(
                     new Date(lastSavedAt),
                     new Date(),
