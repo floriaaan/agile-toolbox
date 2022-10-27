@@ -350,7 +350,7 @@ const RightSidebar = () => {
           setComponents([...old]);
           setSelectedComponentIndex(undefined);
         }}
-        className="inline-flex items-center justify-center p-2 text-red-600 duration-150 border border-red-200 rounded-md hover:bg-red-100 gap-x-2"
+        className="fixed inline-flex items-center justify-center w-[17rem] p-2 text-red-600 duration-150 border border-red-200 rounded-md right-2 bottom-2 hover:bg-red-100 gap-x-2"
       >
         <HiTrash />
         Supprimer
