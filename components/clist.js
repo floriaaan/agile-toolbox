@@ -1,19 +1,8 @@
 import React from "react";
 import {useState} from "react";
 
-export const clist = () => {
-    const dogBreeds = ['corgi', 'shih tzu', 'pug'];
-    return (
-        <ul>
-        {dogBreeds.map((choice, index) => {
-            return <option value={choice} key={index}>{choice}</option>
-        })}
-        </ul>
-    )
 
-    
-/*
-export const Clist = ({choices,maxchoice}) => {
+export default function Clist({choices,maxchoice}) {
     const [selectedValue, setSelectedValue] = useState("");
     const [choicesState,setChoicesState] = useState([]);
 
@@ -81,5 +70,3 @@ export const Clist = ({choices,maxchoice}) => {
     
 
 }    
-export default Clist;
-*/
