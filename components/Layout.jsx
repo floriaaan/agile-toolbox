@@ -62,7 +62,6 @@ const LeftSidebar = () => {
   const {
     components,
     setComponents,
-    selectedComponentIndex,
     setSelectedComponentIndex,
   } = useLayout();
   return (
@@ -127,24 +126,6 @@ const LeftSidebar = () => {
             onClick={() => {
               const old = components;
               const component = {
-                type: "carousel",
-                medias: [],
-                key: `carousel-${old.length}`,
-                name: `Caroussel ${old.length + 1}`,
-              };
-              setComponents([...old, component]);
-
-              setSelectedComponentIndex(old.length);
-            }}
-            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
-          >
-            <HiViewBoards className="w-4 h-4 mr-2 text-neutral-400" />
-            Caroussel
-          </button>
-          <button
-            onClick={() => {
-              const old = components;
-              const component = {
                 type: "image",
                 url: "https://picsum.photos/200",
                 key: `image-${old.length}`,
@@ -158,24 +139,6 @@ const LeftSidebar = () => {
           >
             <HiPhotograph className="w-4 h-4 mr-2 text-neutral-400" />
             Image
-          </button>
-          <button
-            onClick={() => {
-              const old = components;
-              const component = {
-                type: "video",
-                url: "",
-                key: `video-${old.length}`,
-                name: `Vidéo ${old.length + 1}`,
-              };
-              setComponents([...old, component]);
-
-              setSelectedComponentIndex(old.length);
-            }}
-            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
-          >
-            <HiVideoCamera className="w-4 h-4 mr-2 text-neutral-400" />
-            Vidéo
           </button>
           <button
             onClick={() => {

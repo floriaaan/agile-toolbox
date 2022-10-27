@@ -119,10 +119,10 @@ export default function Home() {
                                     left: component.position?.x || 0,
                                 }}
                                 onDragStart={(e) => {
-                                  dragStart(e, index)
+                                    dragStart(e, index)
                                 }}
                                 onDragEnter={(e) => {
-                                  dragEnter(e, index)
+                                    dragEnter(e, index)
                                 }}
                                 onDragEnd={drop}
                                 draggable
