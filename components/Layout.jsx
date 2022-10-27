@@ -3,10 +3,7 @@ import { Navbar } from "./Navbar";
 
 import { TbClick } from "react-icons/tb";
 import { BiText } from "react-icons/bi";
-import { createContext, useContext, useState } from "react";
-import { Navbar } from "./Navbar";
 
-import { CgHashtag } from "react-icons/cg";
 import { BsInputCursorText } from "react-icons/bs";
 
 const LayoutContext = createContext();
