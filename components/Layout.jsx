@@ -177,6 +177,24 @@ const LeftSidebar = () => {
             <HiVideoCamera className="w-4 h-4 mr-2 text-neutral-400" />
             Vidéo
           </button>
+          <button
+            onClick={() => {
+              const old = components;
+              const component = {
+                type: "cursor",
+                props: {},
+                key: `cursor-${old.length}`,
+                name: `Curseur ${old.length + 1}`,
+              };
+              setComponents([...old, component]);
+
+              setSelectedComponentIndex(old.length);
+            }}
+            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
+          >
+            <BsSliders className="w-4 h-4 mr-2 text-neutral-400" />
+            Curseur
+          </button>
         </div>
       </div>
 
@@ -208,6 +226,9 @@ const LeftSidebar = () => {
                 {component?.type === "video" && (
                   <HiVideoCamera className="w-4 h-4 mr-2 text-neutral-400" />
                 )}
+                {component?.type === "cursor" && (
+                  <BsSliders className="w-4 h-4 mr-2 text-neutral-400" />
+                )}
                 {component?.name}
               </span>
               {/* <button
@@ -234,7 +255,12 @@ const LeftSidebar = () => {
  * Figma-style sidebar for properties
  */
 const RightSidebar = () => {
-  const { selectedComponentIndex,setSelectedComponentIndex, setComponents, components } = useLayout();
+  const {
+    selectedComponentIndex,
+    setSelectedComponentIndex,
+    setComponents,
+    components,
+  } = useLayout();
   const component = components[selectedComponentIndex];
   const [text, setText] = useState(component?.props?.text || "");
   const [bgColor, setBgColor] = useState(
