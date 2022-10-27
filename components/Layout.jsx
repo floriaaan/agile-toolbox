@@ -123,7 +123,7 @@ const LeftSidebar = () => {
               const old = components;
               const component = {
                 type: "carousel",
-                props: {},
+                medias: [],
                 key: `carousel-${old.length}`,
                 name: `Caroussel ${old.length + 1}`,
               };
@@ -141,7 +141,7 @@ const LeftSidebar = () => {
               const old = components;
               const component = {
                 type: "image",
-                props: {},
+                url: "https://picsum.photos/200",
                 key: `image-${old.length}`,
                 name: `Image ${old.length + 1}`,
               };
@@ -159,7 +159,7 @@ const LeftSidebar = () => {
               const old = components;
               const component = {
                 type: "video",
-                props: {},
+                url: video,
                 key: `video-${old.length}`,
                 name: `Vidéo ${old.length + 1}`,
               };
