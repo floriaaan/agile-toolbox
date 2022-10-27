@@ -3,6 +3,7 @@ import { Navbar } from "./Navbar";
 
 import { TbClick } from "react-icons/tb";
 import { BiText } from "react-icons/bi";
+import { BsInputCursorText } from "react-icons/bs";
 
 const LayoutContext = createContext();
 
@@ -11,9 +12,9 @@ export const LayoutProvider = ({ children }) => {
   const [selectedComponentIndex, setSelectedComponentIndex] =
     useState(undefined);
 
-//   useEffect(() => {
-//     console.log(components, selectedComponentIndex);
-//   }, [components, selectedComponentIndex]);
+  //   useEffect(() => {
+  //     console.log(components, selectedComponentIndex);
+  //   }, [components, selectedComponentIndex]);
 
   return (
     <LayoutContext.Provider
@@ -79,6 +80,24 @@ const LeftSidebar = () => {
           >
             <BiText className="w-4 h-4 mr-2 text-neutral-400" />
             Texte
+          </button>
+          <button
+            onClick={() => {
+              const old = components;
+              const component = {
+                type: "textinput",
+                props: {},
+                key: `textinput-${old.length}`,
+                name: `Champ texte ${old.length + 1}`,
+              };
+              setComponents([...old, component]);
+
+              setSelectedComponentIndex(old.length);
+            }}
+            className="inline-flex items-center p-2 text-sm duration-150 border rounded-md hover:bg-neutral-100 active:bg-neutral-200 active:border-neutral-300 border-neutral-200 bg-neutral-50"
+          >
+            <BsInputCursorText className="w-4 h-4 mr-1 text-neutral-400" />
+            Champ texte
           </button>
         </div>
       </div>
