@@ -53,7 +53,7 @@ export const LayoutProvider = ({ children }) => {
         <Navbar />
         <div className="inline-flex w-full h-full grow">
           <LeftSidebar />
-          <div className="grow">{children}</div>
+          <div className="pb-12 overflow-auto grow">{children}</div>
           <RightSidebar />
         </div>
       </main>
